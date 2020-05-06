@@ -205,6 +205,9 @@ public class FullscreenActivity extends AppCompatActivity implements PopupMenu.O
             case R.id.OPTION_WORMBURST_TEXT:
                 success = sim.action(Simulation.OPTION_WORMBURST_TEXT);
                 return true;
+            case R.id.OPTION_STATS:
+                success = sim.action(Simulation.OPTION_SNAKE_STATS);
+                return true;
             default:
                 return false;
         }

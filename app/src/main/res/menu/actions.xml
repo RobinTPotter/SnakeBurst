@@ -8,6 +8,9 @@
         android:id="@+id/OPTION_UNSET_TARGET_TEXT"
         android:title="Unset Target" />
     <item
+        android:id="@+id/OPTION_STATS"
+        android:title="Snake Stats" />
+    <item
         android:id="@+id/OPTION_WORMBURST_TEXT"
         android:title="Snake Burst" />
 </menu>

@@ -35,6 +35,7 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
     static String OPTION_TARGET_NEAREST_TEXT = "Set Target Nearest";
     static String OPTION_UNSET_TARGET_TEXT = "Unset Target";
     static String OPTION_WORMBURST_TEXT = "Burst Settings";
+    static String OPTION_SNAKE_STATS = "Snake Stats";
 
     /**
      * static string for paintable options
@@ -59,6 +60,7 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
 
     int burstSize = 10;
     String burstStyle = BURST_TYPE_RADIAL;
+    private Stats stats;
 
     /**
      * designed to place markers under or over the objects in the simulation.
@@ -245,9 +247,20 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
                 (new Settings(SnakesView.getContext(), this)).show();
 
             }
+        } else if (command.equals(OPTION_SNAKE_STATS)) {
+            synchronized (objects) {
+                if (stats==null) stats = new Stats(SnakesView.getContext(), this);
+                stats.setWorm(selectedWorm);
+                stats.show();
+
+            }
         }
         return false;
     }
+
+   //public void updateStats() {
+   //    if (stats!=null && stats.isShowing() ) stats.update(selectedWorm);
+   //}
 
     /*
     gesture methods
@@ -301,9 +314,8 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
         if (selectedWorm!=null) {
             if (Math.abs(selectedWorm.getX()-e1.getX())<100) {
                 if (Math.abs(selectedWorm.getY()-e1.getY())<100) {
-                    Log.i("ding", "before "+selectedWorm.targetx + " "+selectedWorm.targety);
                     Log.i("ding", "before "+selectedWorm.speed);
-                    float speedfactor = 1+(velocityX*velocityX+velocityY*velocityY)/10000000;
+                    float speedfactor = 1+(float)Math.sqrt(velocityX*velocityX+velocityY*velocityY)/2000;
                     Log.i("ding", "before "+speedfactor);
                     selectedWorm.targetx+=velocityX/5;
                     selectedWorm.targety+=velocityY/5;
@@ -314,8 +326,8 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
                     else if (selectedWorm.targetx<0) selectedWorm.targetx=0;
 
                     selectedWorm.speed *= speedfactor;
+
                     selectedWorm.update();
-                    Log.i("ding", "AFDTER "+selectedWorm.targetx + " "+selectedWorm.targety);
                     Log.i("ding", "after "+selectedWorm.speed);
                 }
             }

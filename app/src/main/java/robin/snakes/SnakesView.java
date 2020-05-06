@@ -129,6 +129,7 @@ public class SnakesView extends SurfaceView {
     protected void drawSomething(Canvas surfaceCanvas) {
 
         simulation.updateProperties(getWidth(), getHeight());
+        //simulation.updateStats();
 
         if (buffer != null) {
             simulation.drawMethod(getWidth(), getHeight());

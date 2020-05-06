@@ -28,6 +28,7 @@ public class SnakesThread extends Thread {
                     snakesView.getHolder().unlockCanvasAndPost(canvas);
                 }
 
+
                 try {
                     sleep(50);
                 } catch (InterruptedException e) {
