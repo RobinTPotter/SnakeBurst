@@ -7,18 +7,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity  {
+public class FullscreenActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -75,20 +75,6 @@ public class FullscreenActivity extends AppCompatActivity  {
             hide();
         }
     };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
 
 
     @Override
@@ -114,14 +100,12 @@ public class FullscreenActivity extends AppCompatActivity  {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        Button btnSettings = (Button) findViewById(R.id.dummy_button);
+        Button btnSettings = findViewById(R.id.dummy_button);
         //btnSettings.setOnTouchListener(mDelayHideTouchListener);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerForContextMenu(v);
-                openContextMenu(v);
-                unregisterForContextMenu(v);
+                showPopup(v);
             }
         });
 
@@ -187,59 +171,43 @@ public class FullscreenActivity extends AppCompatActivity  {
 
 
 
-
-
-
-
-
-
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                        ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        onCreateOptionsMenu(menu);
+    public void showPopup(View v) {
+        PopupMenu popup=new PopupMenu(this,v);
+        popup.setOnMenuItemClickListener(this);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.actions, popup.getMenu());
+        popup.show();
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Log.e("ARG","create options menu");
 
-        if (menu.findItem(0) == null)
-            return createMenu(menu);
 
-        return true;
 
-    }
-    public boolean createMenu(Menu menu) {
-        Log.e("ARG","create menu");
-        menu.clear();
 
-        int order = 0;
 
-        menu.add(0, Menu.NONE, order++, Simulation.OPTION_TARGET_NEAREST_TEXT);
-        menu.add(0, Menu.NONE, order++, Simulation.OPTION_UNSET_TARGET_TEXT);
-        menu.add(0, Menu.NONE, order++, Simulation.OPTION_WORMBURST_TEXT);
 
-        return true;
-    }
 
-    public boolean onContextItemSelected(MenuItem item) {
-
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
         Log.i("ARG","hello1");
         boolean success = false;
         Simulation sim = ((SnakesView) findViewById(R.id.snakesView)).getSimulation();
 
         Log.i("ARG","hello2");
         /// Handle item selection
-        if (item.getTitle().equals(Simulation.OPTION_TARGET_NEAREST_TEXT)) {
-            success = sim.action(Simulation.OPTION_TARGET_NEAREST_TEXT);
-            Log.i("ARG",Simulation.OPTION_TARGET_NEAREST_TEXT+ " "+ success);
-        } else if (item.getTitle().equals(Simulation.OPTION_UNSET_TARGET_TEXT)) {
-            success = sim.action(Simulation.OPTION_UNSET_TARGET_TEXT);
-            Log.i("ARG",Simulation.OPTION_UNSET_TARGET_TEXT+ " "+ success);
-        }else if (item.getTitle().equals(Simulation.OPTION_WORMBURST_TEXT)) {
-            success = sim.action(Simulation.OPTION_WORMBURST_TEXT);
-            Log.i("ARG",Simulation.OPTION_WORMBURST_TEXT+ " "+ success);
-        }
-        return success;
-    }
 
+        switch (item.getItemId()) {
+            case R.id.OPTION_TARGET_NEAREST_TEXT:
+                success = sim.action(Simulation.OPTION_TARGET_NEAREST_TEXT);
+                return true;
+            case R.id.OPTION_UNSET_TARGET_TEXT:
+                success = sim.action(Simulation.OPTION_UNSET_TARGET_TEXT);
+                return true;
+            case R.id.OPTION_WORMBURST_TEXT:
+                success = sim.action(Simulation.OPTION_WORMBURST_TEXT);
+                return true;
+            default:
+                return false;
+        }
+
+    }
 }

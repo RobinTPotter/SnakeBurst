@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Worm implements Comparable<Worm>, WormTarget {
 
+    static float SPEED_LIMIT = 2.0f;
     float x, y;
     boolean alive = false;
     int size;
@@ -22,18 +23,12 @@ public class Worm implements Comparable<Worm>, WormTarget {
     WormTarget targetting;
     Worm nearestWorm;
     float nearestWormDistance;
-
-
-
     float aggression=0.5f;
-
-
-
     int eaten=0;
     int reproduced=0;
-
-
     float speed = 0.5f;
+    int width;
+    int height;
 
     Paint p = new Paint();
     Simulation wormWrangler;
@@ -77,6 +72,8 @@ public class Worm implements Comparable<Worm>, WormTarget {
         targetx = x;
         targety = y;
         alive = true;
+        this.width=width;
+        this.height=height;
         initSegments();
     }
 
@@ -99,6 +96,8 @@ public class Worm implements Comparable<Worm>, WormTarget {
     public void update() {
 
         if (!alive) return;
+
+        if (speed>SPEED_LIMIT) speed *= .95;
 
         if (targetting != null && targetting.isAlive()) {
             targetx = targetting.getX();

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/OPTION_TARGET_NEAREST_TEXT"
+        android:title="Set target nearest" />
+    <item
+        android:id="@+id/OPTION_UNSET_TARGET_TEXT"
+        android:title="Unset Target" />
+    <item
+        android:id="@+id/OPTION_WORMBURST_TEXT"
+        android:title="Snake Burst" />
+</menu>

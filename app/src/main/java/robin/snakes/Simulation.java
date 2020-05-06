@@ -298,7 +298,28 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        // SnakesView.message("fling");
+        if (selectedWorm!=null) {
+            if (Math.abs(selectedWorm.getX()-e1.getX())<100) {
+                if (Math.abs(selectedWorm.getY()-e1.getY())<100) {
+                    Log.i("ding", "before "+selectedWorm.targetx + " "+selectedWorm.targety);
+                    Log.i("ding", "before "+selectedWorm.speed);
+                    float speedfactor = 1+(velocityX*velocityX+velocityY*velocityY)/10000000;
+                    Log.i("ding", "before "+speedfactor);
+                    selectedWorm.targetx+=velocityX/5;
+                    selectedWorm.targety+=velocityY/5;
+
+                    if (selectedWorm.targety>selectedWorm.height) selectedWorm.targety=selectedWorm.height;
+                    else if (selectedWorm.targety<0) selectedWorm.targety=0;
+                    if (selectedWorm.targetx>selectedWorm.width) selectedWorm.targetx=selectedWorm.width;
+                    else if (selectedWorm.targetx<0) selectedWorm.targetx=0;
+
+                    selectedWorm.speed *= speedfactor;
+                    selectedWorm.update();
+                    Log.i("ding", "AFDTER "+selectedWorm.targetx + " "+selectedWorm.targety);
+                    Log.i("ding", "after "+selectedWorm.speed);
+                }
+            }
+        }
         return true;
     }
 
