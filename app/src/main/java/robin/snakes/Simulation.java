@@ -12,6 +12,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,6 +22,8 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
     SnakesView SnakesView;
     ArrayList<WormTarget> objects = new ArrayList<WormTarget>();
 
+    long lastTime =-1;
+    long statsUpdate = 1000;
     int width, height;
     int initialWorms = 10;
     Worm selectedWorm;
@@ -215,6 +218,12 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
             }
 
         }
+
+        long time = (new Date()).getTime();
+        if (lastTime ==-1 || (lastTime + statsUpdate)>time) {
+            if (stats!=null)  stats.update();
+            lastTime = time;
+        }
     }
 
 
@@ -251,6 +260,8 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
             synchronized (objects) {
                 if (stats==null) stats = new Stats(SnakesView.getContext(), this);
                 stats.setWorm(selectedWorm);
+                stats.setActivity(this.SnakesView.activity);
+                Log.d("GRR","set snake stats "+selectedWorm);
                 stats.show();
 
             }
@@ -259,9 +270,9 @@ public class Simulation implements View.OnTouchListener, GestureDetector.OnGestu
     }
 
    //public void updateStats() {
-   //    if (stats!=null && stats.isShowing() ) stats.update(selectedWorm);
+   //    if (stats!=null && stats.isShowing() ) stats.update();
    //}
-
+//
     /*
     gesture methods
      */

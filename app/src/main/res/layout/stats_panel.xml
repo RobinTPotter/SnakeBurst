@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="Stats"
         android:textAllCaps="false"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +23,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Speed"
-            android:textSize="24sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Speed" />
+            android:text="Speed"
+            android:textAlignment="viewStart" />
 
     </LinearLayout>
 
@@ -45,14 +46,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Direction"
-            android:textSize="24sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtDirection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Direction" />
+            android:text="Direction"
+            android:textAlignment="viewStart" />
 
     </LinearLayout>
 
@@ -67,14 +69,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Eaten"
-            android:textSize="24sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtEaten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Eaten" />
+            android:text="Eaten"
+            android:textAlignment="viewStart" />
 
     </LinearLayout>
 
@@ -89,14 +92,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Reproduced"
-            android:textSize="24sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtReproduced"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Reproduced" />
+            android:text="Reproduced"
+            android:textAlignment="viewStart" />
 
     </LinearLayout>
 
