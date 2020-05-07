@@ -8,6 +8,10 @@
 
 - long press to show menu and choose action!
 
+- see snake stats!
+
+- fling gesture, on selected snake to influence speed and direction!
+
 - scale gesture to produce burst of snakes!
 
 - when a snake reaches its snake target, a snake is eaten or new snake produced!
