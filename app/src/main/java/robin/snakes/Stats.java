@@ -81,7 +81,7 @@ public class Stats extends Dialog {
                                                     TextView txtReproduced = findViewById(R.id.txtReproduced);
 
                                                     txtSpeed.setText(String.valueOf(getWorm().speed));
-                                                    txtDirection.setText(String.format("%0.4f", getWorm().dirx) + "," + String.format("%0.4f", getWorm().diry) );
+                                                    txtDirection.setText(String.format("%.4f", getWorm().dirx) + "," + String.format("%.4f", getWorm().diry) );
                                                     txtEaten.setText(String.valueOf(getWorm().eaten));
                                                     txtReproduced.setText(String.valueOf(getWorm().reproduced));
 
