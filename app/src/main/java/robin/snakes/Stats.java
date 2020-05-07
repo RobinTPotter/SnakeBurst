@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 import static java.lang.Math.min;
 
 /**
@@ -79,7 +81,7 @@ public class Stats extends Dialog {
                                                     TextView txtReproduced = findViewById(R.id.txtReproduced);
 
                                                     txtSpeed.setText(String.valueOf(getWorm().speed));
-                                                    txtDirection.setText(String.valueOf(getWorm().dirx) + "," + String.valueOf(getWorm().diry));
+                                                    txtDirection.setText(String.format("%0.4f", getWorm().dirx) + "," + String.format("%0.4f", getWorm().diry) );
                                                     txtEaten.setText(String.valueOf(getWorm().eaten));
                                                     txtReproduced.setText(String.valueOf(getWorm().reproduced));
 
